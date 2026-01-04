@@ -1,0 +1,25 @@
+{
+	"repos": [
+		{
+			"url": "https://github.com/UnknownDuelist2001/Unknown-Duelist-Custom-Cards",
+			"repo_name": "Unknown Duelist Custom Cards",
+			"repo_path": "./repositories/Unknown Duelist Custom Cards",
+			"has_core": true,
+			"core_path": "bin",
+			"data_path": "",
+			"script_path": "script",
+			"should_update": true,
+			"should_read": true
+		}
+	],
+	"urls": [
+		{
+			"type": "pic",
+			"url": "https://raw.githubusercontent.com/UnknownDuelist2001/Unknown-Duelist-Custom-Cards-Pics/main/pics{}.jpg"
+		},
+		{
+			"type": "field",
+			"url": "https://raw.githubusercontent.com/UnknownDuelist2001/Unknown-Duelist-Custom-Cards-Pics/main/pics/field/{}.jpg"
+		}
+	]
+}
