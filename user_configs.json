@@ -15,11 +15,11 @@
 	"urls": [
 		{
 			"type": "pic",
-			"url": "https://raw.githubusercontent.com/UnknownDuelist2001/Unknown-Duelist-Custom-Cards-Pics/main/pics{}.jpg"
+			"url": "https://raw.githubusercontent.com/UnknownDuelist2001/Unknown-Duelist-Custom-Cards-Pics/main/{}.jpg"
 		},
 		{
 			"type": "field",
-			"url": "https://raw.githubusercontent.com/UnknownDuelist2001/Unknown-Duelist-Custom-Cards-Pics/main/pics/field/{}.jpg"
+			"url": "https://raw.githubusercontent.com/UnknownDuelist2001/Unknown-Duelist-Custom-Cards-Pics/main/field/{}.jpg"
 		}
 	]
 }
