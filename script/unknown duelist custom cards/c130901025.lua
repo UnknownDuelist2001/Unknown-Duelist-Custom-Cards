@@ -78,7 +78,7 @@ function s.damop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetTarget(function(e,c) return not c:IsSetCard(0xf10) end)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
-	aux.RegisterClientHint(c,nil,tp,1,0,aux.Stringid(id,3),nil)
+	aux.RegisterClientHint(c,nil,tp,1,0,aux.Stringid(id,2),nil)
 end
 function s.negtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(1-tp) and chkc:IsOnField() and chkc:IsNegatable() end
