@@ -31,7 +31,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.exdop)
 	c:RegisterEffect(e2)
 end
-s.listed_names={323,id}
+s.listed_names={130901024,id}
 s.listed_series={0xf10}
 function s.matfilter(c,lc,sumtype,tp)
 	return c:IsRace(RACE_FIEND,lc,sumtype,tp) or c:IsAttribute(ATTRIBUTE_FIRE,lc,sumtype,tp)
@@ -40,7 +40,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.spfilter(c,e,tp)
-	return c:IsCode(323) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsCode(130901024) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

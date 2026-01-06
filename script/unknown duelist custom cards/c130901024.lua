@@ -30,7 +30,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.mtop)
 	c:RegisterEffect(e3)
 end
-s.listed_names={329}
+s.listed_names={130901030}
 s.listed_series={0xf10}
 s.counter_list={0xf10}
 function s.indes(e,c)
