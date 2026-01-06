@@ -116,10 +116,16 @@ function s.rmop(e,tp,eg,ep,ev,re,r,rp)
 	local lk=g:GetFirst():GetLink()
 	if #g>0 and Duel.Remove(g,POS_FACEUP,REASON_EFFECT)>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-		local dg=Duel.SelectMatchingCard(tp,Card.IsAbleToDeck,tp,0,LOCATION_ONFIELD|LOCATION_GRAVE,1,lk,nil)
+		local sg=Duel.SelectMatchingCard(tp,Card.IsAbleToDeck,tp,0,LOCATION_ONFIELD|LOCATION_GRAVE,1,lk,nil)
+		if #sg==0 then return end
+		Duel.HintSelection(sg,true)
+		if Duel.SendtoDeck(sg,nil,SEQ_DECKBOTTOM,REASON_EFFECT)==0 then return end
+		local dg=Duel.GetOperatedGroup():Filter(Card.IsLocation,nil,LOCATION_DECK|LOCATION_EXTRA)
 		if #dg==0 then return end
-		Duel.HintSelection(dg,true)
-		Duel.SendtoDeck(dg,nil,SEQ_DECKBOTTOM,REASON_EFFECT)
+		local ct=dg:FilterCount(Card.IsLocation,nil,LOCATION_DECK)
+		if ct>1 then
+			Duel.SortDeckbottom(tp,1-tp,ct)
+		end
 	end
 end
 function s.cfilter(c,tp,zone)
