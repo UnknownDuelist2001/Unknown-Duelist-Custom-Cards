@@ -1,4 +1,4 @@
---Decode Talker Overclock Sovereign
+--Decode Talker Overclocker
 local s,id=GetID()
 function s.initial_effect(c)
 	--Link summon
@@ -100,6 +100,7 @@ function s.negop(e,tp,eg,ep,ev,re,r,rp)
 		local tc=Duel.SelectMatchingCard(tp,s.rmfilter,tp,LOCATION_GRAVE,0,1,1,nil)
 		local lk=tc:GetFirst():GetLink()
 		local rc=re:GetHandler()
+		Duel.Hint(HINT_CARD,0,id)
 		if #tc>0 and Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)>0 and Duel.NegateEffect(ev) and rc:IsRelateToEffect(re) then
 			local dg=Duel.GetFieldGroup(tp,0,LOCATION_ONFIELD)
 			if #dg>0 and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then

@@ -105,8 +105,11 @@ function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.negop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
+	local code=c:GetCode()
+	e:SetLabel(code)
 	if Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,3)) then
 		c:RegisterFlagEffect(id,RESET_EVENT+RESETS_STANDARD,0,1)
+		Duel.Hint(HINT_CARD,0,e:GetLabel())
 		local rc=re:GetHandler()
 		if Duel.NegateEffect(ev) and rc:IsRelateToEffect(re) then
 			Duel.Destroy(rc,REASON_EFFECT)
