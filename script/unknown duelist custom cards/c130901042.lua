@@ -23,7 +23,6 @@ function s.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetCountLimit(1,id)
 	e2:SetCondition(aux.NOT(s.spquickcon))
-	e2:SetCost(s.spcost)
 	e2:SetTarget(s.sptg)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
@@ -54,12 +53,13 @@ function s.initial_effect(c)
 	e5:SetCondition(s.spquickcon)
 	c:RegisterEffect(e5)
 end
+s.listed_names={id}
 s.counter_place_list={0xf11}
 function s.ctcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsLinkSummoned()
 end
 function s.ctfilter(c)
-	return c:IsLinkMonster()
+	return c:IsLinkMonster() and not c:IsCode(id)
 end
 function s.cttg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
@@ -74,10 +74,6 @@ function s.ctop(e,tp,eg,ep,ev,re,r,rp)
 	if c:IsRelateToEffect(e) and ct>0 then
 		c:AddCounter(0xf11,ct)
 	end
-end
-function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsCanRemoveCounter(tp,0xf11,1,REASON_COST) end
-	e:GetHandler():RemoveCounter(tp,0xf11,1,REASON_COST)
 end
 function s.spfilter(c,e,tp)
 	local ct=e:GetHandler():GetCounter(0xf11)
