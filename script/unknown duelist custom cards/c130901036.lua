@@ -94,20 +94,20 @@ function s.negop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local cid=Duel.GetChainInfo(ev,CHAININFO_CHAIN_ID)
 	if Duel.GetFlagEffectLabel(tp,id)==cid or not Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,0)) then return end
-		c:RegisterFlagEffect(id,RESETS_STANDARD_PHASE_END,0,1)
-		Duel.RegisterFlagEffect(tp,id,RESET_CHAIN,0,1,cid)
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-		local tc=Duel.SelectMatchingCard(tp,s.rmfilter,tp,LOCATION_GRAVE,0,1,1,nil)
-		local lk=tc:GetFirst():GetLink()
-		local rc=re:GetHandler()
-		Duel.Hint(HINT_CARD,0,id)
-		if #tc>0 and Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)>0 and Duel.NegateEffect(ev) and rc:IsRelateToEffect(re) then
-			local dg=Duel.GetFieldGroup(tp,0,LOCATION_ONFIELD)
-			if #dg>0 and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then
-				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-				local sg=dg:Select(tp,1,lk,nil)
-				Duel.HintSelection(sg)
-				Duel.Destroy(sg,REASON_EFFECT)
+	c:RegisterFlagEffect(id,RESETS_STANDARD_PHASE_END,0,1)
+	Duel.RegisterFlagEffect(tp,id,RESET_CHAIN,0,1,cid)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
+	local tc=Duel.SelectMatchingCard(tp,s.rmfilter,tp,LOCATION_GRAVE,0,1,1,nil)
+	local lk=tc:GetFirst():GetLink()
+	local rc=re:GetHandler()
+	Duel.Hint(HINT_CARD,0,id)
+	if #tc>0 and Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)>0 and Duel.NegateEffect(ev) and rc:IsRelateToEffect(re) then
+		local dg=Duel.GetFieldGroup(tp,0,LOCATION_ONFIELD)
+		if #dg>0 and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+			local sg=dg:Select(tp,1,lk,nil)
+			Duel.HintSelection(sg)
+			Duel.Destroy(sg,REASON_EFFECT)
 		end
 	end
 end

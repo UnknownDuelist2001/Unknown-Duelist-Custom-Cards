@@ -1,7 +1,6 @@
---Meklord Emperor Wisel - Madness
+--Alternative Meklord Emperor Wisel
 local s,id=GetID()
 function s.initial_effect(c)
-	c:SetUniqueOnField(1,0,id)
 	--xyz summon
 	Xyz.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x6013),4,2,s.ovfilter,aux.Stringid(id,0))
 	c:EnableReviveLimit()
@@ -32,7 +31,7 @@ function s.initial_effect(c)
 	e3:SetTarget(s.atchtg)
 	e3:SetOperation(s.atchop)
 	c:RegisterEffect(e3)
-	--negate spell/trap or effect
+	--Negate spell/trap or effect
 	local e4=Effect.CreateEffect(c)
 	e4:SetDescription(aux.Stringid(id,2))
 	e4:SetCategory(CATEGORY_NEGATE+CATEGORY_DESTROY)
@@ -40,9 +39,9 @@ function s.initial_effect(c)
 	e4:SetCode(EVENT_CHAINING)
 	e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
 	e4:SetRange(LOCATION_MZONE)
-	e4:SetCountLimit(1,{id,1})
+	e4:SetCountLimit(1)
 	e4:SetCondition(s.negcon)
-	e4:SetCost(s.negcost)
+	e4:SetCost(Cost.DetachFromSelf(1))
 	e4:SetTarget(s.negtg)
 	e4:SetOperation(s.negop)
 	c:RegisterEffect(e4)
@@ -86,10 +85,6 @@ function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) then return false end
 	return (ep~=tp and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and Duel.IsChainNegatable(ev)) or (rp==1-tp and re:GetActivateLocation()==LOCATION_HAND
 		and re:IsActiveType(TYPE_MONSTER) and Duel.IsChainNegatable(ev))
-end
-function s.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
-	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function s.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

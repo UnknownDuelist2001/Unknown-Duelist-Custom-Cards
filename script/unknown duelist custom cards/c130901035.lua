@@ -61,7 +61,7 @@ function s.disop(e,tp,eg,ep,ev,re,r,rp)
 			Duel.SetLP(1-tp,Duel.GetLP(1-tp)*2)
 		end
 		local c=e:GetHandler()
-		--Cannot activate monsters effects from the hand
+		--Cannot Activate
 		local e2=Effect.CreateEffect(c)
 		e2:SetDescription(aux.Stringid(id,0))
 		e2:SetType(EFFECT_TYPE_FIELD)

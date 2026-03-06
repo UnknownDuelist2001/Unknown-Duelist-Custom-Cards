@@ -1,7 +1,6 @@
---Meklord Emperor Granel - Despair
+--Alternative Meklord Emperor Granel
 local s,id=GetID()
 function s.initial_effect(c)
-	c:SetUniqueOnField(1,0,id)
 	--xyz summon
 	Xyz.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x6013),4,2,s.ovfilter,aux.Stringid(id,0))
 	c:EnableReviveLimit()
@@ -49,8 +48,8 @@ function s.initial_effect(c)
 	e6:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e6:SetType(EFFECT_TYPE_IGNITION)
 	e6:SetRange(LOCATION_MZONE)
-	e6:SetCountLimit(1,{id,1})
-	e6:SetCost(s.spcost)
+	e6:SetCountLimit(1)
+	e6:SetCost(Cost.DetachFromSelf(1))
 	e6:SetTarget(s.sptg)
 	e6:SetOperation(s.spop)
 	c:RegisterEffect(e6,false,REGISTER_FLAG_DETACH_XMAT)
@@ -92,10 +91,6 @@ function s.atchop(e,tp,eg,ep,ev,re,r,rp)
 	elseif rec<6000 then
 		Duel.Recover(1-tp,rec*2,REASON_EFFECT)
 	end
-end
-function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
-	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function s.spfilter(c,e,tp)
 	return c:IsType(TYPE_SYNCHRO) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)

@@ -13,7 +13,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function s.filter(c)
-	return c:IsMonster() and c:IsRace(RACE_CYBERSE) and c:IsAbleToDeck()
+	return c:IsFaceup() and c:IsMonster() and c:IsRace(RACE_CYBERSE) and c:IsAbleToDeck()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE|LOCATION_REMOVED) and chkc:IsControler(tp) and s.filter(chkc) end

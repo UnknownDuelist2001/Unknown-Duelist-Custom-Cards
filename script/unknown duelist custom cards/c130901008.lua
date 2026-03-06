@@ -1,7 +1,6 @@
---Meklord Emperor Skiel - Loss
+--Alternative Meklord Emperor Skiel
 local s,id=GetID()
 function s.initial_effect(c)
-	c:SetUniqueOnField(1,0,id)
 	--xyz summon
 	Xyz.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x6013),4,2,s.ovfilter,aux.Stringid(id,0))
 	c:EnableReviveLimit()
@@ -36,11 +35,13 @@ function s.initial_effect(c)
 	local e4=Effect.CreateEffect(c)
 	e4:SetDescription(aux.Stringid(id,2))
 	e4:SetType(EFFECT_TYPE_IGNITION)
+	e4:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e4:SetRange(LOCATION_MZONE)
-	e4:SetCountLimit(1,{id,1})
-	e4:SetCondition(s.dircon)
-	e4:SetCost(s.dircost)
-	e4:SetOperation(s.dirop)
+	e4:SetCountLimit(1)
+	e4:SetCondition(s.dacon)
+	e4:SetCost(Cost.DetachFromSelf(1))
+	e4:SetTarget(s.datg)
+	e4:SetOperation(s.daop)
 	c:RegisterEffect(e4)
 end
 s.listed_series={0x13,0x6013}
@@ -78,20 +79,25 @@ function s.atchop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Recover(1-tp,rec*2,REASON_EFFECT)
 	end
 end
-function s.dircon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetCurrentPhase()==PHASE_MAIN1 and not e:GetHandler():IsHasEffect(EFFECT_DIRECT_ATTACK)
+function s.dacon(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.IsAbleToEnterBP()
 end
-function s.dircost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
-	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
+function s.dafilter(c)
+	return c:IsFaceup() and c:IsSetCard(0x3013) and not c:IsHasEffect(EFFECT_DIRECT_ATTACK)
 end
-function s.dirop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
-	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_SINGLE)
-	e2:SetCode(EFFECT_DIRECT_ATTACK)
-	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-	e2:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
-	c:RegisterEffect(e2,true)
+function s.datg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and s.dafilter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(s.dafilter,tp,LOCATION_MZONE,0,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
+	Duel.SelectTarget(tp,s.dafilter,tp,LOCATION_MZONE,0,1,1,nil)
+end
+function s.daop(e,tp,eg,ep,ev,re,r,rp)
+	local tc=Duel.GetFirstTarget()
+	if tc:IsRelateToEffect(e) then
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_DIRECT_ATTACK)
+		e1:SetReset(RESETS_STANDARD_PHASE_END)
+		tc:RegisterFlagEffect(id,RESET_EVENT|RESETS_STANDARD,EFFECT_FLAG_CLIENT_HINT,1,0,3205)
+	end
 end

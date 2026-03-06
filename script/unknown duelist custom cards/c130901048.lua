@@ -1,4 +1,4 @@
---N.A. Eagle Jet
+--N.A. Eagle Head Jet
 local s,id=GetID()
 function s.initial_effect(c)
 	--Update ATK
